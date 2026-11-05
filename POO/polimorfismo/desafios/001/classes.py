@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-class Funcionario:
+class Funcionario(ABC):
     def __init__(self,nome,salario=0):
         self.nome = nome
         self.__salario = salario
@@ -10,14 +10,16 @@ class Funcionario:
     
     @salario.setter
     def salario(self,salario):
-        if salario < self.__salario:
-            raise TypeError("O Salario nao pode ser inferior ao inicial.")
+        if salario is None:
+            raise ValueError("Voce precisa digitar um valor")
         else:
-            self.__salario = salario
+            if salario < self.__salario:
+                raise TypeError("O Salario nao pode ser inferior ao inicial.")
+            else:
+                self.__salario = salario
 
-    @abstractmethod
     def calcularBonus(self,bonus):
-        return self.__salario * bonus
+        return self.salario * bonus
 
     def __str__(self):
         return f"O salario de {self.nome}: R${self.salario} com um bonus de {self.calcularBonus()}"
