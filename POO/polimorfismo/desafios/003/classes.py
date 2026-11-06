@@ -5,8 +5,8 @@ class Pagamento(ABC):
         self._valor = valor
 
     @property
-    def valor(self):
-        return self._valor
+    def fvalor(self):
+        return f"R${self._valor:,.2f}"
     
     @valor.setter
     def valor(self,valor):

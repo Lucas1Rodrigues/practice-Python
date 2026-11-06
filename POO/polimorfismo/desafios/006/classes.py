@@ -17,7 +17,7 @@ class Email(Validador):
         
 class Usuario(Validador):
     def validar(self, texto=''):
-        padrao = r'[\a-z\d!@#$%&*()_+-]{5,20}'
+        padrao = r'[\a-z\d_]{5,20}'
 
         if re.fullmatch(padrao, texto):
             print("Usuário permitido.")
