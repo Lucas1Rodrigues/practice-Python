@@ -1,27 +1,26 @@
 class Carrinho:
-    def __init__(self):
-        self.produto = [Produto()]
-        self.total = 0
+    def __init__(self,produtos:list = None):
+        self.produtos = produtos if produtos else []
 
     @property
     def total(self):
-        return self.total
+        self.produtos = sum(p.preco for p in self.produtos else [])
 
     def __str__(self):
         return f'---------------------------------\n Total: {self.total}'
 
     def __iadd__(self, other):
-        if other < 0:
-            raise ValueError("Valores nao podem ser negativos")
-        if not isinstance(other,int) or not isinstance(other,float):
-            raise ValueError("Digite um valor válido")
+        if isinstance(other, Produto):
+            return Carrinho(self.produtos + [other])
+        elif isinstance(other,Carrinho):
+            return Carrinho(self.produtos + other.produtos)
         else:
-            self.total += other
+            raise TypeError("voce tentou adicionar inválido no carrinho")
     
 class Produto:
-    def __init__(self,nome = '', valor:float = 0):
+    def __init__(self,nome = '', preco:float = 0):
         self.nome = nome
-        self.valor = valor
+        self.valor = preco
 
     def __str__(self):
         return f'{self.nome}(R${self.valor:,.2f})'
